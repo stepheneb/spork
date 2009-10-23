@@ -142,6 +142,11 @@ class Spork::TestFramework
     true
   end
 
+  def reload
+    framework.reload
+    true
+  end
+
   def run_tests(argv, stderr, stdout)
     raise NotImplementedError
   end

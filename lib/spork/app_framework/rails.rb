@@ -120,6 +120,14 @@ class Spork::AppFramework::Rails < Spork::AppFramework
     preload_rails
     yield
   end
+
+  def reload
+    STDERR.puts "Reloading Rails environment"
+    STDERR.flush
+    ENV["RAILS_ENV"] ||= 'test'
+    reload_rails
+    true
+  end
   
   def entry_point
     @entry_point ||= File.expand_path("config/environment.rb", Dir.pwd)
@@ -147,6 +155,13 @@ class Spork::AppFramework::Rails < Spork::AppFramework
         nil
       end
     )
+  end
+
+  def reload_rails
+    Object.const_set(:RAILS_GEM_VERSION, version) if version
+    require boot_file
+    ActionController::Dispatcher.reload_application
+    ::Rails::Initializer.send(:include, Spork::AppFramework::Rails::NinjaPatcher)
   end
   
   def preload_rails

@@ -34,7 +34,7 @@ class Spork::Server
   
   attr_accessor :port
 
-  # This is the public facing method that is served up by DRb.  To use it from the client side (in a testing framework):
+  # These are the public facing method that is served up by DRb.  To use it from the client side (in a testing framework):
   # 
   #   DRb.start_service("druby://localhost:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
   #                                            # see http://redmine.ruby-lang.org/issues/show/496 to see why localhost:0 is used.
@@ -44,6 +44,14 @@ class Spork::Server
   # When implementing a test server, don't override this method: override run_tests instead.
   def run(argv, stderr, stdout)
     run_strategy.run(argv, stderr, stdout)
+  end
+
+  #   spec_server.reload
+  #
+  def reload
+    abort
+    run_strategy.reload
+    restart
   end
   
   def abort

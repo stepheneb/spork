@@ -23,6 +23,10 @@ class Spork::RunStrategy::Forking < Spork::RunStrategy
     test_framework.preload
   end
 
+  def reload
+    test_framework.reload
+  end
+
   def running?
     @child && @child.running?
   end

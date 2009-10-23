@@ -14,6 +14,10 @@ class Spork::RunStrategy
     raise NotImplementedError
   end
 
+  def reload
+    raise NotImplementedError
+  end
+
   def cleanup
     raise NotImplementedError
   end

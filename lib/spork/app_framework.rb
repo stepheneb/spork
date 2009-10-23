@@ -61,6 +61,11 @@ class Spork::AppFramework
     yield
   end
   
+  # Abstract: The method that will reload the application, presumably because the source code has changed
+  def reload
+    raise NotImplementedError
+  end
+
   def short_name
     self.class.short_name
   end
